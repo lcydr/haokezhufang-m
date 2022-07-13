@@ -1,5 +1,8 @@
 <template>
-  <div></div>
+  <div>
+    <!-- 一级路由 -->
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
