@@ -4,13 +4,9 @@
     <van-nav-bar title="账号登录" left-arrow @click-left="btnBack" />
     <!-- 登录表单 -->
     <van-form @submit="login">
+      <van-field v-model="username" name="username" placeholder="请输入账号" />
       <van-field
-        v-model="user.username"
-        name="username"
-        placeholder="请输入账号"
-      />
-      <van-field
-        v-model="user.password"
+        v-model="password"
         type="password"
         name="password"
         placeholder="请输入密码"
@@ -28,31 +24,22 @@ import { login } from '@/api/user'
 export default {
   data() {
     return {
-      user: {
-        username: '',
-        password: ''
-      }
+      username: '',
+      password: ''
     }
   },
   methods: {
     // 获取表单信息
     async login() {
       // 1. 获取表单信息
-      const user = this.user
-      console.log(user)
 
-      this.$toast.loading({
-        message: '加载中...',
-        forbidClick: true,
-        duration: 0
-      })
       try {
-        const res = await login(this.user)
+        const res = await login(this.username, this.password)
         console.log(res)
         this.$toast.success('登陆成功')
       } catch (err) {
         console.log(err)
-        if (err.request.status === 401) {
+        if (err.data.status === 401) {
           this.$toast.fail('账户密码错误')
         } else {
           this.$toast.fail('登录失败，请稍后重试')
