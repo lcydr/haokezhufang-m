@@ -1,24 +1,33 @@
 <template>
   <div>
     <!-- 导航栏 -->
-    <van-nav-bar title="账号登录" left-arrow @click-left="btnBack" />
+    <van-nav-bar title="注册" left-arrow @click-left="btnBack" />
     <!-- 登录表单 -->
     <van-form @submit="login">
-      <van-field v-model="username" name="username" placeholder="请输入账号" />
+      <van-field
+        v-model="username"
+        name="username"
+        placeholder="请输入账号"
+        label="账户"
+      />
       <van-field
         v-model="password"
         type="password"
         name="password"
+        label="密码"
         placeholder="请输入密码"
       />
-
+      <van-field
+        v-model="password"
+        type="password"
+        name="password"
+        label="确认密码"
+        placeholder="请再次输入密码"
+      />
       <div style="margin: 16px">
-        <van-button block type="info" native-type="submit">登录</van-button>
+        <van-button block type="info" native-type="submit">注册</van-button>
       </div>
     </van-form>
-    <div class="foot">
-      <span>还没有账号，<a @click="$router.push('/register')">去注册</a></span>
-    </div>
   </div>
 </template>
 
@@ -104,5 +113,11 @@ export default {
     font-size: 30px;
     margin: auto;
   }
+}
+/deep/.van-cell__title {
+  // flex: 1;
+}
+/deep/.van-cell__value {
+  flex: 1;
 }
 </style>
