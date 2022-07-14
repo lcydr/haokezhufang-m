@@ -4,7 +4,7 @@ import { getItem, setItem } from '@/utils/storage.js'
 
 Vue.use(Vuex)
 
-const TOKEN_KEY = 'TOKEN_USER'
+const TOKEN_KEY = 'TOUTIAO_USER'
 
 export default new Vuex.Store({
   state: {
