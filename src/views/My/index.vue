@@ -4,12 +4,16 @@
       <img src="../../assets/背景图2.png" alt="" />
       <div class="login2">
         <div class="login-n">
-          <div><img src="../../assets/头像.png" /></div>
+          <div>
+            <img :src="`${userUrl}${userInfo.avatar}`" />
+          </div>
         </div>
         <div class="logon-dl">
-          <div class="logon-youk"><span>好客_845296</span></div>
-          <div class="denglu">
-            <a @click="$router.push('/login')">退出</a>
+          <div class="logon-youk">
+            <span>{{ userInfo.nickname }}</span>
+          </div>
+          <div class="denglu" @click="signOut">
+            <a>退出</a>
           </div>
           <div class="bianji"><a>编辑个人资料</a></div>
         </div>
@@ -51,10 +55,49 @@
 
 <script>
 import { mapState } from 'vuex'
+import { userLogin } from '@/api/user.js'
 export default {
   name: 'my',
+  data() {
+    return {
+      userInfo: {},
+      userUrl: 'http://liufusong.top:8080'
+    }
+  },
+  created() {
+    if (this.user) {
+      this.loadUserInfo()
+    }
+  },
   computed: {
     ...mapState(['user'])
+  },
+  methods: {
+    signOut() {
+      this.$dialog
+        .confirm({
+          title: '提示',
+          message: '是否确认退出？'
+        })
+        .then(() => {
+          // on confirm
+          // this.$router.push('/login')
+          this.$store.commit('setUser', null)
+        })
+        .catch(() => {
+          // on cancel
+        })
+    },
+    async loadUserInfo() {
+      try {
+        const { data } = await userLogin()
+        console.log(data)
+        this.userInfo = data.body
+        console.log(this.userInfo)
+      } catch (error) {
+        this.$toast('获取数据失败', error)
+      }
+    }
   }
 }
 </script>
