@@ -1,17 +1,22 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { getToken, setToken } from '@/utils'
 
 Vue.use(Vuex)
-
 export default new Vuex.Store({
+  // user:{token}
+  // user.token
   state: {
-    user: JSON.parse(localStorage.getItem('HEIMA_TOUTIAO_TOKEN')) || {}
+    // 声明token
+    user: getToken() || {}
   },
+  // 修改数据的地方
   mutations: {
+    // 修改token
     setUser(state, payload) {
       state.user = payload
       // token放在本地存储
-      localStorage.setItem('HEIMA_TOUTIAO_TOKEN', JSON.stringify(payload))
+      setToken(payload)
     }
   }
 })
