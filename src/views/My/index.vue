@@ -52,6 +52,7 @@
 <script>
 import { mapState } from 'vuex'
 export default {
+  name: 'my',
   computed: {
     ...mapState(['user'])
   }

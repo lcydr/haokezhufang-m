@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import Home from '@/views/Home'
 Vue.use(VueRouter)
 
 const routes = [
@@ -15,6 +14,7 @@ const routes = [
   {
     path: '/',
     component: () => import('@/views/Layout'),
+    redirect: '/home',
     children: [
       // {
       //   path: '/name',

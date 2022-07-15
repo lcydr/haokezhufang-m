@@ -4,12 +4,18 @@
     <van-nav-bar title="账号登录" left-arrow @click-left="btnBack" />
     <!-- 登录表单 -->
     <van-form @submit="login">
-      <van-field v-model="username" name="username" placeholder="请输入账号" />
+      <van-field
+        v-model="username"
+        name="username"
+        placeholder="请输入账号"
+        :rules="accountLogin"
+      />
       <van-field
         v-model="password"
         type="password"
         name="password"
         placeholder="请输入密码"
+        :rules="passwordLogin"
       />
 
       <div style="margin: 16px">
@@ -24,32 +30,34 @@
 
 <script>
 import { login } from '@/api/user'
+// 校验
+import { accountLogin, passwordLogin } from './rules.js'
 export default {
   name: 'login',
   data() {
     return {
       username: '',
-      password: ''
+      password: '',
+      accountLogin,
+      passwordLogin
     }
   },
   methods: {
     // 获取表单信息
     async login() {
-      // 1. 获取表单信息
-      // 2.表单验证
-
       // 在组件中必须通过 this.$toast 来调用 Toast组件
       this.$toast.loading({
         message: '加载中...',
         forbidClick: true, // 禁用背景点出
         duration: 0 // 持续时间，默认2000ms，如果为0 则
       })
-
       try {
         const res = await login(this.username, this.password)
+        console.log(res.data.body)
+        this.$store.commit('setUser', res.data.body)
         if (res.data.status === 200) {
           this.$toast.success('登陆成功')
-          this.$router.back()
+          this.$router.push('/my')
         } else {
           this.$toast.fail('账户密码错误')
         }
