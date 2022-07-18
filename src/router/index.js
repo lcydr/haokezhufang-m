@@ -16,10 +16,6 @@ const routes = [
     component: () => import('@/views/Layout'),
     redirect: '/home',
     children: [
-      // {
-      //   path: '/name',
-      //   redirect: Home
-      // },
       {
         path: '/home',
         component: () => import('@/views/Home')
@@ -35,8 +31,26 @@ const routes = [
       {
         path: '/my',
         component: () => import('@/views/My')
+        //   children: [
+        //     {
+        //       path: '/collection',
+        //       component: () => import('@/components/my/collection')
+        //     }
+        //   ]
       }
     ]
+  },
+  {
+    path: '/collection',
+    component: () => import('@/components/my/favorites')
+  },
+  {
+    path: '/lease/:id',
+    component: () => import('@/components/my/lease')
+  },
+  {
+    path: '/leaseRoom',
+    component: () => import('@/components/my/leaseRoom')
   }
 ]
 

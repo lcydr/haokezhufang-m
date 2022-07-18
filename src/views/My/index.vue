@@ -1,6 +1,6 @@
 <template>
   <div class="house-my">
-    <div v-if="user" class="my-img2">
+    <div v-if="isLogin" class="my-img2">
       <img src="../../assets/背景图2.png" alt="" />
       <div class="login2">
         <div class="login-n">
@@ -39,8 +39,9 @@
     <!-- ====================================== -->
     <div class="my-body">
       <van-grid :column-num="3">
-        <van-grid-item icon="star-o" text="我的收藏" />
-        <van-grid-item icon="wap-home-o" text="我的出租" />
+        <van-grid-item icon="star-o" text="我的收藏" to="/collection">
+        </van-grid-item>
+        <van-grid-item icon="wap-home-o" text="我的出租" to="/leaseRoom" />
         <van-grid-item icon="clock-o" text="看房记录" />
         <van-grid-item icon="newspaper-o" text="成为房主" />
         <van-grid-item icon="manager-o" text="个人资料" />
@@ -54,7 +55,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
 import { userLogin } from '@/api/user.js'
 export default {
   name: 'my',
@@ -65,12 +66,16 @@ export default {
     }
   },
   created() {
-    if (this.user) {
-      this.loadUserInfo()
-    }
+    // if (this.user) {
+    //   this.loadUserInfo()
+    // }
+    this.userLogin()
   },
   computed: {
-    ...mapState(['user'])
+    // ...mapState(['user'])
+    isLogin() {
+      return !!this.$store.state.user.token
+    }
   },
   methods: {
     signOut() {
@@ -82,13 +87,13 @@ export default {
         .then(() => {
           // on confirm
           // this.$router.push('/login')
-          this.$store.commit('setUser', null)
+          this.$store.commit('setUser', {})
         })
         .catch(() => {
           // on cancel
         })
     },
-    async loadUserInfo() {
+    async userLogin() {
       try {
         const { data } = await userLogin()
         console.log(data)
