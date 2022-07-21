@@ -2,12 +2,13 @@
   <div>
     <!-- 导航栏 -->
     <div>
-      <van-nav-bar title="收藏列表" left-arrow @click-left="onClickLeft" />
+      <van-nav-bar title="房屋管理" left-arrow @click-left="onClickLeft" />
     </div>
+
     <!-- 内容 -->
     <div
       class="favorite"
-      v-for="item in favoritesArr"
+      v-for="item in rentalArr"
       :key="item.houseCode"
       to="btnDetails(item.houseCode)"
       @click="handleClick(item.houseCode)"
@@ -28,27 +29,26 @@
 </template>
 
 <script>
-import { collection } from '@/api/favorites'
+import { Rental } from '@/api/rental.js'
+
 export default {
   data() {
     return {
-      favoritesArr: {},
+      rentalArr: [],
       userUrl: 'http://liufusong.top:8080'
     }
   },
   created() {
-    this.collection()
+    this.Rental()
   },
   methods: {
-    async collection() {
+    async Rental() {
       try {
-        const { data } = await collection()
+        const { data } = await Rental()
         console.log(data)
-        this.favoritesArr = data.body
-        console.log(this.favoritesArr)
-      } catch (error) {
-        this.$toast.fail('获取数据失败', error)
-      }
+        this.rentalArr = data.body
+        console.log(this.rentalArr)
+      } catch (error) {}
     },
     onClickLeft() {
       this.$router.back()
@@ -71,6 +71,7 @@ export default {
     color: #fff;
   }
 }
+
 // 内容
 .favorite {
   display: flex;

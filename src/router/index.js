@@ -49,8 +49,12 @@ const routes = [
     component: () => import('@/components/my/lease')
   },
   {
-    path: '/leaseRoom',
-    component: () => import('@/components/my/leaseRoom')
+    path: '/rental',
+    component: () => import('@/components/my/rental')
+  },
+  {
+    path: '/torent',
+    component: () => import('@/components/home/ToRent.vue')
   }
 ]
 

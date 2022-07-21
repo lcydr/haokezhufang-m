@@ -41,7 +41,7 @@
       <van-grid :column-num="3">
         <van-grid-item icon="star-o" text="我的收藏" to="/collection">
         </van-grid-item>
-        <van-grid-item icon="wap-home-o" text="我的出租" to="/leaseRoom" />
+        <van-grid-item icon="wap-home-o" text="我的出租" to="/rental" />
         <van-grid-item icon="clock-o" text="看房记录" />
         <van-grid-item icon="newspaper-o" text="成为房主" />
         <van-grid-item icon="manager-o" text="个人资料" />
